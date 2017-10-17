@@ -1,0 +1,18 @@
+{% import "_includes/forms" as forms %}
+
+
+
+{{ forms.lightswitchField({
+	label: "Ignore logged in users"|t,
+	instructions: "Only increment counts if users are not logged in"|t,
+	name: 'ignoreLoggedInUsers',
+	on: settings.ignoreLoggedInUsers,
+}) }}
+
+
+{{ forms.textField({
+	label: "Days to accumulate"|t,
+	instructions: "How many days should it track"|t,
+	name: 'daysToKeep',
+	value: settings.daysToKeep
+}) }}
