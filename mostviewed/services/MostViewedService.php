@@ -13,7 +13,7 @@ class MostViewedService extends BaseApplicationComponent
 	 *
 	 * @return int
 	 */
-	public function getCount($entryId)
+	public function getCount($entryId, $daysRange)
 	{
 		// create new model
 		$totalCount = 0;
@@ -25,8 +25,13 @@ class MostViewedService extends BaseApplicationComponent
 		{
 			$settings = craft()->plugins->getPlugin('mostViewed')->getSettings();
 			// populate model from record
+
 			foreach ($mostViewedRecords as $mv)
 			{
+				if ($daysRange && $this->_daysSince($mv->dateCreated) > $daysRange)
+				{
+					continue;
+				}
 				$mostViewedModel = MostViewedModel::populateModel($mv);
 				$totalCount += $mostViewedModel->count;
 			}
@@ -40,7 +45,7 @@ class MostViewedService extends BaseApplicationComponent
 	 *
 	 * @return ElementCriteriaModel
 	 */
-	public function getEntries()
+	public function getEntries($daysRange)
 	{
 		// get all records from DB ordered by count descending
 		$mostViewedRecords = MostViewedRecord::model()->findAll();
@@ -54,6 +59,11 @@ class MostViewedService extends BaseApplicationComponent
 			if (!array_key_exists($eId, $totalCounts))
 			{
 				$totalCounts[$eId] = 0;
+			}
+
+			if ($daysRange && $this->_daysSince($mostViewedRecord->dateCreated) > $daysRange)
+			{
+				continue;
 			}
 			$totalCounts[$eId] += $mostViewedRecord->count;
 		}
@@ -83,8 +93,6 @@ class MostViewedService extends BaseApplicationComponent
 
 		// enable fixed order
 		$criteria->fixedOrder = true;
-
-		//die('<style>body{opacity:1;padding-bottom:10rem;}</style>');
 
 		return $criteria;
 	}

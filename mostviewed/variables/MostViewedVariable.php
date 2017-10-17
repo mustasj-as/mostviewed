@@ -13,9 +13,9 @@ class MostViewedVariable
 	 *
 	 * @return MostViewedModel
 	 */
-	public function getCount($entryId)
+	public function getCount($entryId, $daysRange = null)
 	{
-		return craft()->mostViewed->getCount($entryId);
+		return craft()->mostViewed->getCount($entryId, $daysRange);
 	}
 
 	/**
@@ -23,9 +23,9 @@ class MostViewedVariable
 	 *
 	 * @return ElementCriteriaModel
 	 */
-	public function getEntries()
+	public function getEntries($daysRange = null)
 	{
-		return craft()->mostViewed->getEntries();
+		return craft()->mostViewed->getEntries($daysRange);
 	}
 
 	/**
