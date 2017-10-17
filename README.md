@@ -6,7 +6,7 @@ It's an extension of the [Entry Count plugin developed by PutYourLightsOn](https
 The «Days to accumulate» setting will be used when runnning the cleanup task. This also means the count variable will show number of views last X days.
 
 
-##Twig Tags
+## Twig Tags
 
 **count(entry.id)**
 
@@ -28,7 +28,7 @@ The «Days to accumulate» setting will be used when runnning the cleanup task. 
 	{% do craft.entryCount.increment(entry.id) %}
 
 
-##Roadmap
+## Roadmap
 * Set up action for cron jobs/manual cleanup
 * Set up task index table for better task handling
 * Allow twig variable to accept second parameter to set number of days to fetch view count from
